@@ -1,5 +1,5 @@
 const qrcode = require("qrcode-terminal");
-const chromium = require("chrome-aws-lambda");
+const chromium = require("@sparticuz/chromium");
 const { Client, LocalAuth } = require("whatsapp-web.js");
 
 const groupName = process.env.GROUP_NAME;
