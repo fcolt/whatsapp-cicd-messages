@@ -1,5 +1,5 @@
 const qrcode = require("qrcode-terminal");
-const chromium = require("@sparticuz/chromium");
+const chromium = require("@sparticuz/chromium-min");
 const { Client, LocalAuth } = require("whatsapp-web.js");
 
 const groupName = process.env.GROUP_NAME;
@@ -9,8 +9,7 @@ const getClient = async () =>
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
+      headless: true,
       ignoreHTTPSErrors: true,
     },
   });

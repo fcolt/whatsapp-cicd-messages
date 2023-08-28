@@ -16,6 +16,6 @@
   "dependencies": {
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "https://github.com/Julzk/whatsapp-web.js/tarball/jkr_hotfix_7",
-    "@sparticuz/chromium": "92.0.0"
+    "@sparticuz/chromium-min": "116.0.0"
   }
 }
