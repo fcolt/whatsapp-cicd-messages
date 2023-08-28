@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
+  "engines": {
+    "node": "^14"
+  },
   "description": "",
   "dependencies": {
     "qrcode-terminal": "^0.12.0",
