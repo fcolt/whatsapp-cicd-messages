@@ -8,6 +8,7 @@ const groupName = process.env.GROUP_NAME;
 
 const getClient = async () =>
   new Client({
+    authStrategy: new LocalAuth(),
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
