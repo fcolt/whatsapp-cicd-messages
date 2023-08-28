@@ -7,7 +7,6 @@ const groupName = process.env.GROUP_NAME;
 
 const getClient = async () =>
   new Client({
-    authStrategy: new LocalAuth(),
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
@@ -19,7 +18,9 @@ const getClient = async () =>
 
 getClient().then((client) => {
   client.on("qr", (qr) => {
-    qrcode.generate(qr, { small: true });
+    qrcode.generate(qr, { small: true }, function(qr) {
+      console.info(qr);
+    });
   });
 
   client.on("ready", () => {
