@@ -1,6 +1,7 @@
 const qrcode = require("qrcode-terminal");
 const chromium = require("@sparticuz/chromium-min");
 const { Client, LocalAuth } = require("whatsapp-web.js");
+const app = require('express')();
 
 const groupName = process.env.GROUP_NAME;
 
@@ -37,3 +38,9 @@ getClient().then((client) => {
 
   client.initialize();
 });
+
+app.listen(3000, () => {
+  console.log('Server started');
+});
+
+module.exports = app;
