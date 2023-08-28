@@ -1,7 +1,7 @@
 const qrcode = require("qrcode-terminal");
 const { Client, LocalAuth } = require("whatsapp-web.js");
 
-const groupName = 'Test bot';
+const groupName = process.env.GROUP_NAME;
 
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -16,7 +16,7 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
-  if(!message.from === '15551010841@c.us') {
+  if(!message.from === process.env.FROM_ID) {
     return;
   }
 
