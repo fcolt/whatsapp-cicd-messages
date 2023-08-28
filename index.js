@@ -10,7 +10,7 @@ const getClient = async () =>
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath('https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar'),
+      // executablePath: await chromium.executablePath('https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar'),
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
     },
