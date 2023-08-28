@@ -9,11 +9,12 @@ const getClient = async () =>
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      headless: true,
+      executablePath: await chromium.executablePath('https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar'),
+      headless: chromium.headless,
       ignoreHTTPSErrors: true,
     },
   });
-;
+
 getClient().then((client) => {
   client.on("qr", (qr) => {
     qrcode.generate(qr, { small: true });
