@@ -9,9 +9,9 @@ const mongoose = require("mongoose");
 const groupName = process.env.GROUP_NAME;
 
 const getClient = async () => {
-  // const chromiumExecutablePath = await chromium.executablePath(
-  //   "https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar"
-  // );
+  const chromiumExecutablePath = await chromium.executablePath(
+    "https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar"
+  );
   await mongoose.connect(process.env.MONGODB_URI);
   const store = new MongoStore({ mongoose: mongoose });
   const client = new Client({
@@ -22,7 +22,7 @@ const getClient = async () => {
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      // executablePath: chromiumExecutablePath,
+      executablePath: chromiumExecutablePath,
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
     },
@@ -46,6 +46,10 @@ app.get("/", async (req, res) => {
       console.error("Error generating QR code:", error);
       res.status(500).send("Internal Server Error");
     }
+  });
+
+  client.on('remote_session_saved', () => {
+    console.log('Remote session saved');
   });
 
   client.on("ready", () => {
