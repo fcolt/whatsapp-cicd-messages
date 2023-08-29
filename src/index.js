@@ -8,7 +8,9 @@ const groupName = process.env.GROUP_NAME;
 
 const getClient = async () =>
   new Client({
-    authStrategy: new LocalAuth(),
+    authStrategy: new LocalAuth({
+      dataPath: process.cwd() + '/.wwebjs_auth'
+    }),
     puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
