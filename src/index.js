@@ -9,18 +9,7 @@ const PORT = process.env.PORT;
 
 const getClient = async () =>
   new Client({
-    authStrategy: new LocalAuth(/*{
-      dataPath: '/tmp/.wwebjs_auth'
-    }*/),
-    /*puppeteer: {
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(
-        "https://github.com/stefanjudis/tiny-helpers/raw/primary/static/chromium/chromium-pack.tar"
-      ),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-    },*/
+    authStrategy: new LocalAuth()
   });
 
 app.get("/", async (req, res) => {
