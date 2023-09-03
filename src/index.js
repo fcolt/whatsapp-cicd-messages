@@ -4,7 +4,8 @@ const { Client, LocalAuth } = require("whatsapp-web.js");
 const app = require("express")();
 require('dotenv').config();
 
-const groupName = process.env.GROUP_NAME;
+const GROUP_NAME = process.env.GROUP_NAME;
+const PORT = process.env.PORT;
 
 const getClient = async () =>
   new Client({
@@ -49,7 +50,7 @@ app.get("/", async (req, res) => {
     }
 
     client.getChats().then((chats) => {
-      const myGroup = chats.find((chat) => chat.name === groupName);
+      const myGroup = chats.find((chat) => chat.name === GROUP_NAME);
       client.sendMessage(myGroup.id._serialized, message.body);
     });
   });
@@ -57,7 +58,7 @@ app.get("/", async (req, res) => {
   client.initialize();
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server started");
 });
 
