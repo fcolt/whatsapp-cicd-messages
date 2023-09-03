@@ -9,10 +9,10 @@ const PORT = process.env.PORT;
 
 const getClient = async () =>
   new Client({
-    authStrategy: new LocalAuth({
+    authStrategy: new LocalAuth(/*{
       dataPath: '/tmp/.wwebjs_auth'
-    }),
-    puppeteer: {
+    }*/),
+    /*puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(
@@ -20,7 +20,7 @@ const getClient = async () =>
       ),
       headless: chromium.headless,
       ignoreHTTPSErrors: true,
-    },
+    },*/
   });
 
 app.get("/", async (req, res) => {
