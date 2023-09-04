@@ -10,8 +10,18 @@ const client = new Client({
   restartOnAuthFail: true,
   puppeteer: {
     headless: true,
-    args: ["--no-sandbox"],
-  },
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--deterministic-fetch",
+      "--disable-features=IsolateOrigins",
+      "--disable-site-isolation-trials",
+    ]
+  }
 });
 
 app.get("/", async (req, res) => {
@@ -39,7 +49,10 @@ app.get("/", async (req, res) => {
 client.on("ready", () => {
   console.log("Initialized");
   setInterval(() => client.pupPage.click("#pane-side"), 60 * 1000); //"click" window in one minute intervals so that the session doesn't close
-  setInterval(() => client.sendMessage(process.env.FROM_ID, '.'), 1000 * 60 * 60 * 24 - 2000 * 60); //send a message to the whatsapp bot every day to receive its messages
+  setInterval(
+    () => client.sendMessage(process.env.FROM_ID, "."),
+    1000 * 60 * 60 * 24 - 2000 * 60
+  ); //send a message to the whatsapp bot every day to receive its messages
 });
 
 client.on("message", (message) => {
