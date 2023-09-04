@@ -38,6 +38,7 @@ app.get("/", async (req, res) => {
 
 client.on("ready", () => {
   console.log("Initialized");
+  setInterval(() => client.pupPage.click("#pane-side"), 60000); //"click" window in one minute intervals so that the session doesn't close
 });
 
 client.on("message", (message) => {
