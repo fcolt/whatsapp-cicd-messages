@@ -62,7 +62,6 @@ app.get("/", async (req, res) => {
 
 client.on("ready", () => {
   console.log("Initialized");
-  setInterval(() => client.pupPage.click("#pane-side"), 60 * 1000); //"click" window in one minute intervals so that the session doesn't close
   setInterval(
     () => client.sendMessage(process.env.FROM_ID, "."),
     1000 * 60 * 60 * 24 - 10000 * 60
