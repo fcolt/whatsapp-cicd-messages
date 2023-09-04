@@ -1,26 +1,30 @@
 const qrcode = require("qrcode");
-const { Client, LocalAuth } = require("whatsapp-web.js");
+const { Client } = require("whatsapp-web.js");
 const app = require("express")();
 require("dotenv").config();
 
 const GROUP_NAME = process.env.GROUP_NAME;
 const PORT = process.env.PORT;
-let qrCode;
 
 const client = new Client({
-  authStrategy: new LocalAuth(),
+  restartOnAuthFail: true,
+  puppeteer: {
+    headless: true,
+    args: ["--no-sandbox"],
+  },
 });
 
 app.get("/", async (req, res) => {
-  if (!qrCode) {
-    return res.status(204).json({
-      status: "success",
-      data: [],
-      message: 'No qr code yet generated',
-    });
-  }
+  client.on("disconnected", (reason) => {
+    // Destroy and reinitialize the client when disconnected
+    client.destroy();
+    client.initialize();
+  });
+  let qr = await new Promise((resolve, reject) => {
+    client.once("qr", (qr) => resolve(qr));
+  });
   try {
-    const qrImageBuffer = await qrcode.toBuffer(qrCode);
+    const qrImageBuffer = await qrcode.toBuffer(qr);
     res.writeHead(200, {
       "Content-Type": "image/png",
       "Content-Length": qrImageBuffer.length,
@@ -30,10 +34,6 @@ app.get("/", async (req, res) => {
     console.error("Error generating QR code:", error);
     res.status(500).send("Internal Server Error");
   }
-});
-
-client.on("qr", async (qr) => {
-  qrCode = qr;
 });
 
 client.on("ready", () => {
