@@ -68,18 +68,12 @@ client.on("ready", () => {
   ); //send a message to the whatsapp bot every day to receive its messages
 });
 
-const launchBrowser = async () => {
-  client.pupBrowser = await puppeteer.launch();
-  let page = await client.pupBrowser.newPage();
-  await page.goto('https://whatsapp.com/');
-  console.log('Browser reconnected.');
-}
-
 client.on("pup_disconnected", () => {
   console.log('Browser disconnected, attempting to reconnect');
   (async () => {
-    await launchBrowser();
+    await client.initialize();
   })();
+  console.log('Reconnected')
 });
 
 client.on("message", (message) => {
